@@ -1,6 +1,6 @@
-import { Axios } from "axios";
+import axios from "axios";
 
-const axios = Axios.create({
+const api = axios.create({
     baseURL : process.env.server,
     headers: {
         'X-Requested-With':'XMLHttpRequest',
@@ -9,4 +9,4 @@ const axios = Axios.create({
     },
     withCredentials : true,
 })
-export default axios;
+export default api;

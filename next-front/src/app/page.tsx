@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import api from '@/lib/axios';
 
 interface Post {
   id: number;
@@ -46,7 +47,7 @@ const PostManager: React.FC = () => {
   const fetchPosts = async (): Promise<void> => {
     try {
       setIsLoading(true);
-      const response = await axios.get(`${API_URL}getPosts`);
+      const response = await api.get(`${API_URL}getPosts`);
       
       // Ensure the response structure is correct
       console.log("Fetched Posts:", response.data);
@@ -77,10 +78,10 @@ const PostManager: React.FC = () => {
     try {
       setIsLoading(true);
       if (editingId) {
-        await axios.put<Post>(`${API_URL}editPost/${editingId}`, postData);
+        await api.put<Post>(`${API_URL}editPost/${editingId}`, postData);
         alert('Post updated successfully');
       } else {
-        await axios.post<Post>(`${API_URL}addPost`, postData);
+        await api.post<Post>(`${API_URL}addPost`, postData);
         alert('Post created successfully');
       }
       setTitle('');
@@ -105,7 +106,7 @@ const PostManager: React.FC = () => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
         setIsLoading(true);
-        await axios.delete(`${API_URL}deletePost/${id}`);
+        await api.delete(`${API_URL}deletePost/${id}`);
         alert('Post deleted successfully');
         fetchPosts();
       } catch (error) {
